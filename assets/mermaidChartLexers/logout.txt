@@ -1,0 +1,4 @@
+	graph TB
+    A[User logged in] --> B[Logout]
+    A --> C[Redirect to Homepage]
+    B --> C

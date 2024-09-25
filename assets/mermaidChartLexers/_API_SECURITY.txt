@@ -1,0 +1,37 @@
+graph TD
+  style A fill:#f96,stroke:#333,stroke-width:2px
+  style B fill:#6ff,stroke:#333,stroke-width:2px
+  style C fill:#bbf,stroke:#333,stroke-width:2px
+  style D fill:#ff6,stroke:#333,stroke-width:2px
+  style E fill:#f6f,stroke:#333,stroke-width:2px
+  style F fill:#cfc,stroke:#333,stroke-width:2px
+  style G fill:#ffc,stroke:#333,stroke-width:2px
+  style H fill:#c9f,stroke:#333,stroke-width:2px
+  
+  A[Client] -->|Request| B[Server]
+  B -->|Generate JWT| C[JWT Token]
+  C -->|Encrypt & Store in MongoDB| E[MongoDB]
+  E -->|Generate ID for Authorized Users| F[Authorized Access]
+  
+  A -->|Send Request with JWT| D[Protected Endpoint]
+  
+  D -->|Select Method?| I[Choose Sending Method]
+  I -->|HTTP| J[Send via HTTP]
+  I -->|WebSocket| K[Send via WebSocket]
+  
+  J -->|Verify JWT| E
+  K -->|Verify JWT| E
+  
+  E -->|Valid| F
+  E -->|Invalid| B
+  
+  D -->|Is Protected?| H[Check Protection Logic]
+  H -->|Yes| E
+  H -->|No| B
+  
+  subgraph External RSA Encryption
+    G[RSA Encryption]
+  end
+  
+  F -->|Access JWT| G
+  G -->|Access Control| B

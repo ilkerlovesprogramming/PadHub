@@ -1,0 +1,11 @@
+graph TD
+    A[Is user logged in] -->|yes| B[Is user blacklisted]
+    A -->|no| Q[REDIRECT TO SIGN IN PAGE WITH QUERY REDIRECTION 300]
+    
+    B -->|yes| R[DISABLED SUBMIT OR RESPONSE FROM BACKEND SIDE]
+    B -->|no| C[Submitted && Required areas filled with field rules.]
+    
+    C -->|no| S[ALERT BOX]
+    C -->|yes| D[SUCCESS ALERT 200]
+    
+    D --> T[All fields will be disabled and alert box will be show for refreshing in 3 seconds.]

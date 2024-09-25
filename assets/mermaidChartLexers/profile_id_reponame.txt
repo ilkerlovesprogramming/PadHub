@@ -1,0 +1,25 @@
+graph TD
+    A[User logged && Is logged user == queried user] -->|yes| B[Is username exist]
+    A -->|no| P[PROFILE NOT FOUND]
+    
+    B -->|no| P[PROFILE NOT FOUND]
+    B -->|yes| C[Is user profile private]
+    
+    C -->|no| D[Is repository exist and repository is private]
+    C -->|yes| A[User logged && Is logged user == queried user]
+    C -->|no| A[User logged && Is logged user == queried user]
+    
+    D -->|no| P[REPOSITORY NOT FOUND]
+    D -->|yes| E[User role on repository]
+    
+    E -->|None| P[REPOSITORY NOT FOUND]
+    E -->|Whitelisted| Q[SUCCESS 200]
+    E -->|Admin| Q[SUCCESS 200]
+
+    C -->|no| F[Is page id including prohibited or preallocated words?]
+    
+    F -->|yes| P[PROFILE NOT FOUND]
+    F -->|no| G[Is page id blacklisted]
+    
+    G -->|yes| P[PROFILE NOT FOUND]
+    G -->|no| Q[SUCCESS 200]

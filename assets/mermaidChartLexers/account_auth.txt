@@ -1,0 +1,18 @@
+graph TB
+    A[User logged in] --> B{Is redirection query exist?}
+    B -->|No| E[Redirect to Homepage]
+    B -->|Yes| C{Is it path format with no query and no domain}
+    C -->|Yes| J[Update before render]
+    C -->|No| D{Is query valid json array?}
+    D -->|Yes| K{Is messageQueryExist}
+    K -->|No| L[Internal redirection flash alert will be used]
+    K -->|Yes| M["messageTitle: '',\nmessageBody: '"]
+    J --> L
+    E --> F[ALERT BOX]
+    L --> F
+    F --> N[On Submit]
+    G --> N
+    H[Login Signup Check Logic] --> G
+    I[PAGE NOT FOUND\n404]
+    N --> I
+    L --> A

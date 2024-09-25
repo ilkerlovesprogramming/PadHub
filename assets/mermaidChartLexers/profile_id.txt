@@ -1,0 +1,21 @@
+graph TD;
+    A[User logged && Is logged user == queried user] -- Yes --> SUCCESS200(SUCCESS 200)
+    A -- No --> E[Is page id including prohibited or preallocated words?]
+    
+    E -- Yes --> PROFILE_NOT_FOUND
+    E -- No --> F[Is page id blacklisted]
+    
+    F -- Yes --> PROFILE_NOT_FOUND
+    F -- No --> B[Is username exist]
+    
+    B -- No --> PROFILE_NOT_FOUND
+    B -- Yes --> C[Is user profile private]
+
+    C -- Yes --> G[User logged && Is logged user == queried user]
+    C -- No --> SUCCESS200
+
+    G -- Yes --> SUCCESS200
+    G -- No --> PROFILE_NOT_FOUND
+
+    SUCCESS200(SUCCESS 200)
+    PROFILE_NOT_FOUND(PROFILE NOT FOUND)

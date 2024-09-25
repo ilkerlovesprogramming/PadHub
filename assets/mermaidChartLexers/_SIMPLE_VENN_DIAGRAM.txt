@@ -1,0 +1,32 @@
+graph TD
+  style B fill:#f9f,stroke:#333,stroke-width:2px
+  style C fill:#f9f,stroke:#333,stroke-width:2px
+  style D fill:#f9f,stroke:#333,stroke-width:2px
+  style M fill:#f9f,stroke:#333,stroke-width:2px
+  style E fill:#bbf,stroke:#333,stroke-width:2px
+  style F fill:#bbf,stroke:#333,stroke-width:2px
+  style H fill:#bbf,stroke:#333,stroke-width:2px
+  style I fill:#bbf,stroke:#333,stroke-width:2px
+
+  subgraph Node.js
+    subgraph Backend
+      B(Node.js)
+      C(Express.js)
+      D(Socket.io)
+      M(MongoDB)
+    end
+    
+    B --> E(API Layer)
+    C --> E
+    D --> E
+    M --> C[MongoDB Connection]
+    subgraph Frontend
+      H(React.js)
+      F(Next.js)
+      I(Socket Connection)
+    end
+    E --> H
+  end
+
+  H --> I
+  I --> D
